@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 커넥션 풀  -->
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig"> 
+  		  <property name="driverClassName" value="oracle.jdbc.OracleDriver"></property> 
+   		  <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
+    	  <property name="username" value="C##YOON_SHOP"></property> 
+   		 <!-- Oracle 버전에 따라 계정명에 c##을 붙여주어야 하는 경우가 있습니다. -->
+   		  <property name="password" value="6245912"></property> 
+		</bean> 
+ 
+		<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close"> 
+  		  <constructor-arg ref="hikariConfig"></constructor-arg> 
+		</bean>
+		
+	<!-- sqlsession 객체 생성SQLSessionFactory는 MyBatis-spring 라이브러리 클래스 중 하나. 이 객체를 스프링에서 인식할 수 있도록 root-context.xml 에 빈(Bean)으로 등록.-->	
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"></property>
+  		</bean>  
+  		
+  		<!-- navermail설정 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+     <property name="host" value="smtp.naver.com"/> <!-- 메이서버 호스트 -->
+     <property name="port" value="465"/> <!-- 메이서버 포트번호 -->
+     <property name="username" value="yunyun26@naver.com"/> <!-- 자신의 이메일 아이디 -->
+     <property name="password" value="aodzlxkfldks"/> <!-- 자신의 비밀번호 -->
+       <!-- 보안연결 SSL과 관련된 설정 -->
+     <property name="javaMailProperties">
+      <props>
+      <prop key="mail.smtp.auth">true</prop>
+      <prop key="mail.smtp.starttls.enable">true</prop>
+      <prop key="mail.smtps.checkserveridentity">true</prop>
+      <prop key="mail.smtps.ssl.trust">*</prop>
+      <prop key="mail.debug">true</prop>
+      <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+      </props>
+     </property>
+    </bean>
+  		
+    
+    <mybatis-spring:scan base-package="com.yoon.mapper"/>
+    <context:component-scan base-package="com.yoon.model" />
+    <context:component-scan base-package="com.yoon.service" />  
+    
+</beans>
