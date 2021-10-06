@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcome BookMall</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resources/css/main.css">
 </head>
 <body>
@@ -36,7 +40,7 @@
 						</li>	
 					</c:if>
 					<li>
-						<a href ="/member/logout">로그아웃</a>
+						<a  id="gnb_logout_button">로그아웃</a>
 					</li>
 			
 					<li>
@@ -84,6 +88,31 @@
 			<h1>content area</h1>
 		</div>
 	</div>
+	
+<script>
+	
+	$("#gnb_logout_button").click(function(){
+		
+		$.ajax({
+			
+			type:"POST",
+			url:"/member/logout",
+			success:function(data){
+			
+				alert("로그아웃되었습니다.");
+				location.reload();
+			}
+			
+		});
+		
+	});
+	
+	
+	
+	
+	
+	
+</script>
 
 
 </body>

@@ -161,8 +161,9 @@ public class MemberController {
 	}
 	
 	
-	@GetMapping("/logout")//a태그여서 get방식
-	public String logoutGet(HttpServletRequest request) throws Exception {
+	@PostMapping("/logout")
+	@ResponseBody
+	public void logoutGet(HttpServletRequest request) throws Exception {
 		
 		logger.info("로그아웃");
 		
@@ -171,7 +172,6 @@ public class MemberController {
 		session.invalidate();
 		
 	
-		return "redirect:/";
 	}
 	
 	
