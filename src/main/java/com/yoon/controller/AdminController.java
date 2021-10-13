@@ -23,5 +23,29 @@ public class AdminController {
 		
 		
 	}
+	
+	
+	@GetMapping("/goodsManage")
+	public void adminGoodsManage() {
+		
+		
+	}
 
+	@GetMapping("/goodsEnroll")
+	public void adminGoodsEnroll() {
+		
+		
+	}
+	
+	@GetMapping("/authorsManage")
+	public void adminauthorManage() {
+		
+		
+	}
+
+	@GetMapping("/authorEnroll")
+	public void adminauthorEnroll() {
+		
+		
+	}
 }
